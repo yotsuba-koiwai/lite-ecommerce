@@ -1,0 +1,62 @@
+﻿@model SV19T1081001.DomainModel.PaginationSearchInputForProduct
+@{
+    ViewBag.Title = "Mặt hàng";
+}
+<div>
+    <form action="~/product/search" id="searchInput">
+        <div>
+            <div class="col-sm-3">
+                @Html.HiddenFor(m => m.PageSize)
+                @Html.DropDownListFor(m => m.CategoryID, SelectListHelper.Categories(), new { @class = "form-control" })
+                @*<select class="form-control" name="category">
+                        <option>-- Loại hàng --</option>
+                        <option>Mỹ phẩm</option>
+                        <option>Thực phẩm</option>
+                    </select>*@
+            </div>
+            <div class="col-sm-3">
+                @Html.DropDownListFor(m => m.SupplierID, SelectListHelper.Suppliers(), new { @class = "form-control" })
+                @*<select class="form-control" name="category">
+                        <option>-- Nhà cung cấp --</option>
+                        <option>Công ty TNHH Thành Công</option>
+                        <option>Vina Foods</option>
+                    </select>*@
+            </div>
+            <div class="col-sm-6 input-group">
+                <input type="text" name="searchValue"
+                       class="form-control"
+                       placeholder="Nhập tên mặt hàng cần tìm"
+                       value="@Model.SearchValue">
+                <span class="input-group-btn">
+                    <button type="submit" name="search" id="search-btn" class="btn btn-flat btn-primary">
+                        <i class="fa fa-search"></i>
+                    </button>
+                    <a href="~/product/create"
+                       class="btn btn-flat btn-primary"
+                       style="margin-left:5px;">
+                        <i class="fa fa-plus"></i> Thêm mới
+
+                    </a>
+                </span>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<div id="searchResult">
+
+</div>
+
+@section scripts{
+    <script src="~/Scripts/Search.js"></script>
+    <script>
+        $(document).ready(function () {
+            doSearch(@Model.Page);
+            $("#searchInput").submit(function (event) {
+                event.preventDefault();
+                doSearch(1);
+            });
+        })
+    </script>
+}

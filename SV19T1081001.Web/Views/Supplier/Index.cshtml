@@ -1,0 +1,42 @@
+﻿
+@model SV19T1081001.DomainModel.PaginationSearchInput
+@{
+    ViewBag.Title = "Nhà Cung Cấp";
+}
+
+<form action="~/supplier/search" id="searchInput">
+    <div class="input-group">
+        @Html.HiddenFor(m => m.PageSize)
+        <input type="text" name="searchValue" class="form-control" placeholder="Nhập tên nhà cung cấp, tên giao dịch, hoặc địa chỉ để tìm kiếm..."
+               autofocus value="@Model.SearchValue">
+        <span class="input-group-btn">
+            <button type="submit" name="search" id="search-btn" class="btn btn-flat btn-primary">
+                <i class="fa fa-search"></i>
+            </button>
+        </span>
+        <span class="input-group-btn" style="padding-left:5px;">
+            <a href="~/supplier/create" class="btn btn-flat btn-primary">
+                <i class="fa fa-plus"></i> Thêm mới
+            </a>
+        </span>
+
+    </div>
+</form>
+
+
+<div id="searchResult">
+
+</div>
+
+@section scripts{
+    <script src="~/Scripts/Search.js"></script>
+    <script>
+        $(document).ready(function () {
+            doSearch(@Model.Page);
+            $("#searchInput").submit(function (event) {
+                event.preventDefault();
+                doSearch(1);
+            });
+        })
+    </script>
+} 
